@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:multi_store_app/main_screens/home.dart';
 
 class CustomerHomeScreen extends StatefulWidget {
   const CustomerHomeScreen({Key? key}) : super(key: key);
@@ -8,11 +9,32 @@ class CustomerHomeScreen extends StatefulWidget {
 }
 
 class _CustomerHomeScreenState extends State<CustomerHomeScreen> {
+  var _selectedIndex = 0;
+  final List<Widget> _tabs = const [
+    HomeScreen(),
+    Center(
+      child: Text('category screen'),
+    ),
+    Center(
+      child: Text('stores screen'),
+    ),
+    Center(
+      child: Text('cart screen'),
+    ),
+    Center(
+      child: Text('profile screen'),
+    ),
+  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      body: _tabs[_selectedIndex],
       bottomNavigationBar: BottomNavigationBar(
         selectedItemColor: Colors.black,
+        currentIndex: _selectedIndex,
+        elevation: 0,
+        type: BottomNavigationBarType.fixed,
+        selectedLabelStyle: const TextStyle(fontWeight: FontWeight.w600),
         items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
@@ -35,6 +57,11 @@ class _CustomerHomeScreenState extends State<CustomerHomeScreen> {
             label: 'Profile',
           ),
         ],
+        onTap: (index) {
+          setState(() {
+            _selectedIndex = index;
+          });
+        },
       ),
     );
   }
